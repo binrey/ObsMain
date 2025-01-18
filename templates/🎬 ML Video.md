@@ -1,6 +1,7 @@
 ---
 tags: 
-type: Video
+type: video
+source:
 ---
 ---
 

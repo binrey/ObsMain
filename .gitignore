@@ -1,3 +1,5 @@
 .Obsidian/
 *.DS_Store
 .obsidian/
+.trash
+attachments/
