@@ -5,8 +5,8 @@ type: video
 source: https://www.youtube.com/watch?v=l8pRSuU81PU&list=PLtra0TFhKk-TZgC_IRobYBIriBIakzBuc
 тема:
 ---
----
 
+---
 
 ## Нормализация
 
@@ -15,19 +15,25 @@ source: https://www.youtube.com/watch?v=l8pRSuU81PU&list=PLtra0TFhKk-TZgC_IRobYB
 - GPT-2 использует pre-norm, что улучшает проход градиентов за счет того, что всегда остается оригинальная ветвь с потоком градиентов (см. x = x + …)   
 
 ```
-class Block(nn.Module):
+    def forward(self, x):
+        # Self-Attention sublayer
+        attn_output, _ = self.self_attn(x, x, x)
+        x = self.norm1(x + attn_output)  # Post-Norm
 
-    def __init__(self, config):
-        super().__init__()
-        self.ln_1 = nn.LayerNorm(config.n_embd)
-        self.attn = CausalSelfAttention(config)
-        self.ln_2 = nn.LayerNorm(config.n_embd)
-        self.mlp = MLP(config)
+        # Feed-forward sublayer
+        linear_output = self.linear(x)
+        x = self.norm2(x + linear_output)  # Post-Norm
+        return x
+        
+    def forward(self, x):
+        # Self-Attention sublayer
+        attn_output, _ = self.self_attn(self.norm1(x), self.norm1(x), self.norm1(x))  # Pre-Norm
+        x = x + attn_output
 
-    def forward(self, x):
-        x = x + self.attn(self.ln_1(x))
-        x = x + self.mlp(self.ln_2(x))
-        return x
+        # Feed-forward sublayer
+        linear_output = self.linear(self.norm2(x))  # Pre-Norm
+        x = x + linear_output
+        return x
 ```
 
 ## Attention-MLP
@@ -68,7 +74,6 @@ description: "Sign in"
 url: "https://colab.research.google.com/drive/1fEEzkt5owZSej6MPuUY-ZCRD6Z12UTqF?authuser=0#scrollTo=W7u6B1TLRsla&uniqifier=1"
 ```
 
- 
 | element                                                  | time, sec | GPU mem |
 | :------------------------------------------------------- | --------: | ------: |
 | autocast + fine vocab_size + fused AdamW + torch.compile | 22.3      | 8.2     |

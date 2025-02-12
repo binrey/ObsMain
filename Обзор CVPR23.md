@@ -1,0 +1,1 @@
+![[CVPR23 E2EAD. Jose M. Alvarez, Nvidia. Сamera based perception#Качество важнее размера?]]
