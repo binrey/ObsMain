@@ -7,6 +7,8 @@ source: https://youtu.be/L47eql6YgB0?si=A5NB1M8COm1osOCl&t=1066
 ## Решение проблемы редких классов
 В реальности встречается много редких объектов, которые слабо представлены в датасетах
 ![[attachments/Pasted image 20250123130529.png]]
+### CenterPoint poor performance
+
 ![[attachments/Screenshot 2025-01-21 at 08.59.48.png]]
 Решение в использовании больших моделей обученных на реально больших данных - фундаментальные модели
 ![[attachments/Pasted image 20250121090055.png]]
