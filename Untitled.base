@@ -1,0 +1,10 @@
+filters:
+  or:
+    - file.folder != "attachments"
+    - file.folder != "templates"
+views:
+  - type: table
+    name: Table
+    order:
+      - file.name
+    rowHeight: medium

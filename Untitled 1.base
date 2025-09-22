@@ -1,0 +1,8 @@
+views:
+  - type: table
+    name: Table
+    order:
+      - file.name
+      - inferModality
+    columnSize:
+      file.name: 685
