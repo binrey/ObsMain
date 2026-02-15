@@ -37,5 +37,5 @@ sensors
 -ss second to start from
 -t duration in seconds
 ```
-ffmpeg -i input.mp4 -ss 0 -t 1 -vf "fps=10,scale=320:-1:flags=lanczos" -loop 0 output.gif
+ffmpeg -i input.mp4 -ss 0 -t 1 -vf "setpts=0.5*PTS,fps=10,scale=320:-1:flags=lanczos" -loop 0 output.gif
 ```
